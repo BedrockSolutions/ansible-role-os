@@ -20,6 +20,9 @@
           command: "swapon --show"
           register: os_swap_device_check
 
+        - debug:
+            var: os_swap_device_check
+
         - block:
             - name: "Initialize {{ os_v.device }} as a swap device"
               command: "mkswap {{ os_v.device }}"
