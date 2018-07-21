@@ -1,0 +1,25 @@
+---
+
+- block:
+    - validate:
+        schema:
+          type: object
+          properties:
+            command:
+              type: string
+              enum:
+                - dependency
+                - harden
+                - reboot
+                - reboot_if_required
+                - shutdown
+                - update_packages
+                - upgrade_packages
+          required:
+            - command
+        instance: "{{ os }}"
+
+    - include_tasks: '{{ os.command }}.yml'
+      when: os.command != 'dependency'
+  tags:
+    - os

@@ -1,0 +1,29 @@
+---
+
+- block:
+    - name: "Flush handlers to see if reboot is required"
+      meta: flush_handlers
+
+    - name: "Check /var/run/reboot-required"
+      stat:
+        path: /var/run/reboot-required
+      register: os_reboot_required_file
+      changed_when: os_reboot_required_file.stat.exists
+      when: not os_reboot_required
+
+    - block:
+        - name: "Reboot machine"
+          shell: nohup bash -c "sleep 2s && shutdown -r now" &
+          become: yes
+
+        - name: "Wait for the ssh connection to return"
+          wait_for_connection:
+            timeout: 240
+            delay: 15
+
+        - name: "Reset the reboot flag"
+          set_fact:
+            os_reboot_required: no
+      when: os_reboot_required or os_reboot_required_file.stat.exists
+  tags:
+    - os_reboot_if_required

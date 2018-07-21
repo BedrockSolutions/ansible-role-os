@@ -1,0 +1,5 @@
+---
+
+- name: reboot
+  set_fact:
+    os_reboot_required: yes

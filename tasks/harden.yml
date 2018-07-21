@@ -1,0 +1,32 @@
+---
+
+- block:
+    - validate:
+        schema:
+          type: object
+          properties:
+            kernel_ip_forwarding:
+              type: boolean
+              default: no
+            ufw_manage_defaults:
+              type: boolean
+              default: no
+          required:
+            - kernel_ip_forwarding
+            - ufw_manage_defaults
+        instance: "{{ os }}"
+      register: os_validated
+
+    - set_fact:
+        os_v: "{{ os_validated.result }}"
+
+    - name: 'Harden operating system'
+      import_role:
+        name: dev-sec.os-hardening
+      vars:
+        ufw_manage_defaults: "{{ os_v.ufw_manage_defaults }}"
+        sysctl_overwrite:
+          net.ipv4.ip_forward: "{{ os_v.kernel_ip_forwarding | ternary(1, 0) }}"
+      become: yes
+  tags:
+    - os_harden

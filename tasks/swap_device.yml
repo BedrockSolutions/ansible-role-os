@@ -1,0 +1,35 @@
+---
+
+- block:
+    - validate:
+        schema:
+          type: object
+          properties:
+            device:
+              type: string
+          required:
+            - device
+        instance: "{{ os }}"
+      register: os_validated
+
+    - set_fact:
+        os_v: "{{ os_validated.result }}"
+
+    - block:
+        - name: "Check if swap device is already enabled"
+          command: "swapon --show"
+          register: os_swap_device_check
+
+        - block:
+            - name: "Initialize {{ os_v.device }} as a swap device"
+              command: "mkswap {{ os_v.device }}"
+
+            - name: "Add {{ os_v.device }} to /etc/fstab"
+              lineinfile:
+                path: /etc/fstab
+                line: "{{ os_v.device }} none swap sw 0 0"
+          when: os_v.device in os_swap_device_check.stdout
+      become: yes
+
+  tags:
+    - os_swap_device
