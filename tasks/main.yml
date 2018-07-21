@@ -13,6 +13,7 @@
                 - reboot
                 - reboot_if_required
                 - shutdown
+                - swap_device
                 - update_packages
                 - upgrade_packages
           required:
