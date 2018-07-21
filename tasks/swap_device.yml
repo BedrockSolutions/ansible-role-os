@@ -31,7 +31,7 @@
               lineinfile:
                 path: /etc/fstab
                 line: "{{ os_v.device }} none swap sw 0 0"
-          when: os_v.device in os_swap_device_check.stdout
+          when: os_v.device not in os_swap_device_check.stdout
       become: yes
 
   tags:
