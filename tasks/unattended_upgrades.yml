@@ -18,6 +18,7 @@
 
     - import_role:
         name: jnv.unattended-upgrades
+      become: yes
 
     - import_role:
         name: jcheroske.stackdriver
