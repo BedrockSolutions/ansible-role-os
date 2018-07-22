@@ -28,6 +28,7 @@
     - block:
         - name: "Check if swap device is already enabled"
           command: "swapon --show"
+          changed_when: no
           register: os_swap_device_check
 
         - block:
