@@ -1,0 +1,42 @@
+---
+
+- block:
+    - validate:
+        schema:
+          type: object
+          properties:
+            stackdriver_log_ingestion:
+              type: boolean
+              default: no
+          required:
+            - stackdriver_log_ingestion
+        instance: "{{ os }}"
+      register: os_validated
+
+    - set_fact:
+        os_v: "{{ os_validated.result }}"
+
+    - import_role:
+        name: jnv.unattended-upgrades
+
+    - import_role:
+        name: jcheroske.stackdriver
+      vars:
+        stackdriver:
+          command: configure_logging_agent
+          config: |
+            <source>
+              @type tail
+              <parse>
+                @type regexp
+                expression /^(?<time>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3})\s+fail2ban\.(?<module>\w+)\s+\[\d+\]: (?<level>[A-Z]+)\s+(?<message>.*)$/
+                time_format %Y-%m-%d %H:%M:%S,%L
+              </parse>
+              path /var/log/fail2ban.log
+              pos_file /var/lib/google-fluentd/pos/fail2ban.pos
+              tag fail2ban
+            </source>
+          filename: unattended-upgrades
+      when: os_v.stackdriver_log_ingestion
+  tags:
+    - os_unattended_upgrades

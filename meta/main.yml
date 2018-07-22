@@ -8,3 +8,11 @@ dependencies:
       common:
         command: dependency
     version: master
+
+  - name: jcheroske.stackdriver
+    scm: git
+    src: git@github.com:jcheroske/ansible-role-stackdriver.git
+    vars:
+      stackdriver:
+        command: dependency
+    version: master
