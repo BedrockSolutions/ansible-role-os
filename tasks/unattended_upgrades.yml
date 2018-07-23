@@ -5,11 +5,11 @@
         schema:
           type: object
           properties:
-            stackdriver_log_ingestion:
+            stackdriver_ingest_log:
               type: boolean
               default: no
           required:
-            - stackdriver_log_ingestion
+            - stackdriver_ingest_log
         instance: "{{ os }}"
       register: os_validated
 
@@ -38,6 +38,6 @@
               tag fail2ban
             </source>
           filename: unattended-upgrades
-      when: os_v.stackdriver_log_ingestion
+      when: os_v.stackdriver_ingest_log
   tags:
     - os_unattended_upgrades
