@@ -30,7 +30,8 @@
               @type tail
               <parse>
                 @type regexp
-                expression /^(?<time>)\s+(?<level>[A-Z]+)\s+(?<message>.*)$/
+                expression /^(?<time>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3})\s+(?<level>[A-Z]+)\s+(?<message>.*)$/
+                time_format %Y-%m-%d %H:%M:%S,%L
               </parse>
               path /var/log/unattended-upgrades/unattended-upgrades.log
               pos_file /var/lib/google-fluentd/pos/unattended-upgrades.pos
