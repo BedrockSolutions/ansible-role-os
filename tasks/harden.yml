@@ -40,11 +40,11 @@
 #        dest: /etc/host.conf
 #        mode: 644
 
-    - name: "Secure shared memory"
-      lineinfile:
-        path: /etc/fstab
-        line: tmpfs /run/shm tmpfs defaults,noexec,nosuid 0 0
-      register: reboot
+#    - name: "Secure shared memory"
+#      lineinfile:
+#        path: /etc/fstab
+#        line: tmpfs /run/shm tmpfs defaults,noexec,nosuid 0 0
+#      register: reboot
   become: yes
   tags:
     - os_harden
