@@ -39,11 +39,12 @@
             </source>
             <filter unattended-upgrades>
               @type record_transformer
+              enable_ruby
               renew_record true
               keep_keys level
               <record>
                 hostname ${hostname}
-                message ${hostname record["message"]}
+                message ${hostname << " " << record["message"]}
               </record>
             </filter>
 
