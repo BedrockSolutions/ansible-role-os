@@ -44,7 +44,7 @@
               keep_keys level
               <record>
                 hostname ${hostname}
-                message ${hostname << " " << record["message"]}
+                message ${hostname + " " + record["message"]}
               </record>
             </filter>
 
