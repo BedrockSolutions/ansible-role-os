@@ -37,6 +37,16 @@
               pos_file /var/lib/google-fluentd/pos/unattended-upgrades.pos
               tag unattended-upgrades
             </source>
+            <filter unattended-upgrades>
+              @type record_transformer
+              renew_record true
+              keep_keys level
+              <record>
+                hostname ${hostname}
+                message ${hostname record["message"]}
+              </record>
+            </filter>
+
           filename: unattended-upgrades
       when: os_v.stackdriver_ingest_log
   tags:
