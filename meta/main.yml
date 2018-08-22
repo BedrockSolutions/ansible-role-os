@@ -1,17 +1,17 @@
 ---
 
 dependencies:
-  - name: jcheroske.common
+  - name: bedrock.common
     scm: git
-    src: git@github.com:jcheroske/ansible-role-common.git
+    src: git@github.com:BedrockSolutions/ansible-role-common.git
     vars:
       common:
         command: dependency
     version: master
 
-  - name: jcheroske.stackdriver
+  - name: bedrock.stackdriver
     scm: git
-    src: git@github.com:jcheroske/ansible-role-stackdriver.git
+    src: git@github.com:BedrockSolutions/ansible-role-stackdriver.git
     vars:
       stackdriver:
         command: dependency

@@ -1,0 +1,68 @@
+---
+
+- block:
+    - validate:
+        schema:
+          type: object
+          properties:
+            ssh_allowed_networks:
+              type: array
+              items:
+                type: string
+              default:
+                - 0.0.0.0/0
+          required:
+            - ssh_allowed_networks
+        instance: "{{ ufw }}"
+      register: ufw_validated
+
+    - set_fact:
+        ufw_v: "{{ ufw_validated.result }}"
+
+    - block:
+        - name: "Install UFW and supporting packages"
+          apt:
+            name:
+              - ufw
+              - iptables-persistent
+            state: present
+
+        - name: "Set the default policy"
+          template:
+            dest: /etc/default/ufw
+            src: default_policy.j2
+            force: yes
+            mode: 0644
+
+        - name: "Create the /var/log/ufw.log file"
+          copy:
+            content: ""
+            dest: /var/log/ufw.log
+            force: no
+            group: adm
+            mode: 0644
+            owner: syslog
+
+        - name: "Add ssh rules"
+          ufw:
+            rule: allow
+            from_ip: "{{ item }}"
+            port: 22
+            proto: tcp
+          notify: ufw_rules_changed
+          loop: "{{ ufw_v.ssh_allowed_networks }}"
+
+        - name: "Allow localhost access to the local machine's ports"
+          ufw:
+            rule: allow
+            from_ip: 127.0.0.1
+            to_ip: 127.0.0.1
+          notify: ufw_rules_changed
+
+        - name: "Enable the firewall"
+          ufw:
+            state: enabled
+          notify: ufw_rules_changed
+      become: yes
+  tags:
+    - ufw_install

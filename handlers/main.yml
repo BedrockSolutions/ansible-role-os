@@ -3,3 +3,13 @@
 - name: reboot
   set_fact:
     os_reboot_required: yes
+
+- block:
+    - name: ufw_rules_changed
+      shell: iptables-save > /etc/iptables/rules.v4
+
+    - name: ufw_reload
+      ufw:
+        state: reloaded
+      listen: ufw_rules_changed
+  become: yes

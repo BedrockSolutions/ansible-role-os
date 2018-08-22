@@ -21,7 +21,7 @@ to return before proceeding.
 
 ```yaml
 - import_role:
-    name: jcheroske.common
+    name: bedrock.os
   vars:
     common:
       command: reboot
@@ -49,7 +49,7 @@ At a later point in the play where a conditional reboot is desired:
 
 ```yaml
 - import_role:
-    name: jcheroske.common
+    name: bedrock.os
   vars:
     common:
       command: reboot_if_required
@@ -63,7 +63,7 @@ Performs an immediate system shutdown.
 
 ```yaml
 - import_role:
-    name: jcheroske.common
+    name: bedrock.os
   vars:
     common:
       command: shutdown
@@ -77,7 +77,7 @@ Updates the `apt` package cache.
 
 ```yaml
 - import_role:
-    name: jcheroske.common
+    name: bedrock.os
   vars:
     common:
       command: update_packages
@@ -115,7 +115,7 @@ package files that can no longer be downloaded
 
 ```yaml
 - import_role:
-    name: jcheroske.common
+    name: bedrock.os
   vars:
     common:
       command: upgrade_packages

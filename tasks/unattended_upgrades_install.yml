@@ -1,0 +1,30 @@
+---
+
+- block:
+    - validate:
+        schema:
+          type: object
+          properties:
+            stackdriver_ingest_log:
+              type: boolean
+              default: no
+          required:
+            - stackdriver_ingest_log
+        instance: "{{ os }}"
+      register: os_validated
+
+    - set_fact:
+        os_v: "{{ os_validated.result }}"
+
+    - import_role:
+        name: jnv.unattended-upgrades
+      become: yes
+
+    - include_role:
+        name: bedrock.stackdriver
+      vars:
+        stackdriver:
+          command: ingest_unattended_upgrades_log
+      when: os_v.stackdriver_ingest_log
+  tags:
+    - os_unattended_upgrades
