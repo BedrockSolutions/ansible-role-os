@@ -19,7 +19,7 @@ https://bedrocksolutions.github.io/ansible-role-os
 
 * Handlers
 
-  * [reboot](#reboot \(handler\))
+  * [reboot](#reboot_hander)
   * [ufw_rules_changed](#ufw_rules_changed)
 
 ## Installation
@@ -226,7 +226,14 @@ Update the package cache and then upgrade packages:
 
 ## Handlers
 
-### __reboot (handler)__
+### __reboot_hander__
 
 Causes the `reboot_if_required` command to initiate a reboot
 when it is called.
+
+#### Example
+
+```yaml
+- some_task:
+  notify: reboot
+```
