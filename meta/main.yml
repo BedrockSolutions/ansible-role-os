@@ -23,3 +23,10 @@ dependencies:
     vars:
       os_hardening_enabled: no
     version: master
+
+  - name: jnv.unattended-upgrades
+    scm: git
+    src: https://github.com/BedrockSolutions/ansible-role-unattended-upgrades.git
+    vars:
+      unattended_enabled: no
+    version: master
