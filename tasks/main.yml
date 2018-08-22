@@ -10,14 +10,14 @@
               enum:
                 - dependency
                 - harden
+                - install_ufw
+                - install_unattended_upgrades
                 - reboot
                 - reboot_if_required
                 - shutdown
                 - swap
-                - unattended_upgrades_install
                 - update_packages
                 - upgrade_packages
-                - ufw_install
           required:
             - command
         instance: "{{ os }}"

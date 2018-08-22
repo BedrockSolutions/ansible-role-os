@@ -8,19 +8,19 @@ https://bedrocksolutions.github.io/ansible-role-os
 
 * Commands
   * [harden](#harden)
+  * [install_ufw](#install_ufw)
+  * [install_unattended_upgrades](#install_unattended_upgrades)
   * [reboot](#reboot)
   * [reboot_if_required](#reboot_if_required)
   * [shutdown](#shutdown)
   * [swap](#swap)
-  * [ufw_install](#ufw_install)
-  * [unattended_upgrades_install](#unattended_upgrades_install)
   * [update_packages](#update_packages)
   * [upgrade_packages](#upgrade_packages)
 
 * Handlers
 
-  * [reboot](#reboot_handler)
-  * [ufw_rules_changed](#ufw_rules_changed)
+  * [os_reboot](#os_reboot)
+  * [os_ufw_rules_changed](#os_ufw_rules_changed)
 
 ## Installation
 
@@ -96,17 +96,52 @@ set by this command
     * type: boolean
     * default: `false`
   
+### __install_ufw__
+
+Install UFW
+
+#### Arguments
+
+* __`ssh_allowed_networks`:__ list of IP networks that are allowed
+to connect to the SSH daemon
+    * type: list\<string\>
+    * default: `['0.0.0.0/0']`
+      
 #### Example
 
-Harden the operating system and enable IP forwarding:
+Install UFW, restricting SSH access to a specific network:
 
 ```yaml
 - import_role:
     name: bedrock.os
   vars:
     os:
-      command: harden
-      kernel_ip_forwarding: yes
+      command: install_ufw
+      ssh_allowed_networks:
+        - 10.1.0.0/16
+```
+
+### __install_unattended_upgrades__
+
+Install Unattended Upgrades
+
+#### Arguments
+
+* __`stackdriver_ingest_log`:__ If enabled, configures the
+Stackdriver logging agent to ingest the log in `/var/log`
+    * type: boolean
+    * default: no
+      
+#### Example
+
+Install Unattended Upgrades:
+
+```yaml
+- import_role:
+    name: bedrock.os
+  vars:
+    os:
+      command: install_unattended_upgrades
 ```
 
 ### __reboot__
@@ -169,6 +204,29 @@ Performs an immediate system shutdown.
       command: shutdown
 ```
 
+### __swap__
+
+Configures a given device for use as swap space.
+
+#### Arguments
+
+* __`cache_pressure`:__ sets the system `vfs_cache_pressure`
+parameter
+    * type: integer
+    * minimum: 0
+    * maximum: 100
+    * default: 50
+
+* __`device`:__ the device which will be used for swap
+parameter
+    * type: string
+
+* __`swappiness`:__ sets the system `swappiness` parameter
+    * type: integer
+    * minimum: 0
+    * maximum: 100
+    * default: 10
+
 ### __update_packages__
 
 Updates the `apt` package cache.
@@ -187,7 +245,7 @@ Updates the `apt` package cache.
 
 Upgrades installed packages
 
-#### Parameters
+#### Arguments
 
 * __`autoclean`:__ cleans the local repository of retrieved 
 package files that can no longer be downloaded
@@ -226,7 +284,7 @@ Update the package cache and then upgrade packages:
 
 ## Handlers
 
-### __reboot_handler__
+### __os_reboot__
 
 Causes the `reboot_if_required` command to initiate a reboot
 when it is called.
@@ -235,5 +293,5 @@ when it is called.
 
 ```yaml
 - some_task:
-  notify: reboot
+  notify: os_reboot
 ```

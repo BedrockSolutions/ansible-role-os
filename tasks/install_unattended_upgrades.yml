@@ -27,4 +27,4 @@
           command: ingest_unattended_upgrades_log
       when: os_v.stackdriver_ingest_log
   tags:
-    - os_unattended_upgrades
+    - os_install_unattended_upgrades

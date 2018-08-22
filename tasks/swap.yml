@@ -5,6 +5,11 @@
         schema:
           type: object
           properties:
+            cache_pressure:
+              type: integer
+              minimum: 0
+              maximum: 100
+              default: 50
             device:
               type: string
             swappiness:
@@ -12,13 +17,10 @@
               minimum: 0
               maximum: 100
               default: 10
-            cache_pressure:
-              type: integer
-              minimum: 0
-              maximum: 100
-              default: 50
           required:
+            - cache_pressure
             - device
+            - swappiness
         instance: "{{ os }}"
       register: os_validated
 

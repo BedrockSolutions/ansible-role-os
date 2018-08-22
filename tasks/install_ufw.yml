@@ -65,4 +65,4 @@
           notify: ufw_rules_changed
       become: yes
   tags:
-    - ufw_install
+    - os_install_ufw
