@@ -13,11 +13,11 @@
                 - 0.0.0.0/0
           required:
             - ssh_allowed_networks
-        instance: "{{ ufw }}"
-      register: ufw_validated
+        instance: "{{ os }}"
+      register: os_validated
 
     - set_fact:
-        ufw_v: "{{ ufw_validated.result }}"
+        os_v: "{{ os_validated.result }}"
 
     - block:
         - name: "Install UFW and supporting packages"
@@ -50,7 +50,7 @@
             port: 22
             proto: tcp
           notify: ufw_rules_changed
-          loop: "{{ ufw_v.ssh_allowed_networks }}"
+          loop: "{{ os_v.ssh_allowed_networks }}"
 
         - name: "Allow localhost access to the local machine's ports"
           ufw:
