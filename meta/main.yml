@@ -3,7 +3,7 @@
 dependencies:
   - name: bedrock.common
     scm: git
-    src: git@github.com:BedrockSolutions/ansible-role-common.git
+    src: https://github.com/BedrockSolutions/ansible-role-common.git
     vars:
       common:
         command: dependency
@@ -11,8 +11,15 @@ dependencies:
 
   - name: bedrock.stackdriver
     scm: git
-    src: git@github.com:BedrockSolutions/ansible-role-stackdriver.git
+    src: https://github.com/BedrockSolutions/ansible-role-stackdriver.git
     vars:
       stackdriver:
         command: dependency
+    version: master
+
+  - name: dev-sec.os-hardening
+    scm: git
+    src: https://github.com/BedrockSolutions/ansible-os-hardening.git
+    vars:
+      os_hardening_enabled: no
     version: master
