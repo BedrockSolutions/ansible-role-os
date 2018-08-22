@@ -30,7 +30,7 @@
         - name: "Set the default policy"
           template:
             dest: /etc/default/ufw
-            src: default_policy.j2
+            src: ufw_default_policy.j2
             force: yes
             mode: 0644
 
