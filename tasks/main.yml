@@ -1,28 +1,4 @@
 ---
 
-- block:
-    - validate:
-        schema:
-          type: object
-          properties:
-            command:
-              type: string
-              enum:
-                - dependency
-                - harden
-                - install_ufw
-                - install_unattended_upgrades
-                - reboot
-                - reboot_if_required
-                - shutdown
-                - swap
-                - update_packages
-                - upgrade_packages
-          required:
-            - command
-        instance: "{{ os }}"
-
-    - include_tasks: '{{ os.command }}.yml'
-      when: os.command != 'dependency'
-  tags:
-    - os
+- include_tasks: ./os.yml
+  when (os not exists) or (command not in os) or (os.command != 'dependency')
