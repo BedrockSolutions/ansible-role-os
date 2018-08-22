@@ -19,7 +19,7 @@ dependencies:
 
   - name: dev-sec.os-hardening
     scm: git
-    src: https://github.com/BedrockSolutions/ansible-os-hardening.git
+    src: https://github.com/dev-sec/ansible-os-hardening.git
     vars:
       os_hardening_enabled: no
     version: master
