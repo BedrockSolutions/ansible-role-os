@@ -24,7 +24,30 @@
         name: bedrock.stackdriver
       vars:
         stackdriver:
-          command: ingest_unattended_upgrades_log
+          command: configure_logging_agent
+          config: |
+            <source>
+              @type tail
+              <parse>
+                @type regexp
+                expression /^(?<time>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3})\s+(?<level>[A-Z]+)\s+(?<message>.*)$/
+                time_format %Y-%m-%d %H:%M:%S,%L
+              </parse>
+              path /var/log/unattended-upgrades/unattended-upgrades.log
+              pos_file /var/lib/google-fluentd/pos/unattended-upgrades.pos
+              tag unattended-upgrades
+            </source>
+            <filter unattended-upgrades>
+              @type record_transformer
+              enable_ruby
+              renew_record true
+              keep_keys level
+              <record>
+                hostname ${hostname}
+                message ${hostname + " " + record["message"]}
+              </record>
+            </filter>
+          filename: unattended-upgrades
       when: os_v.stackdriver_ingest_log
   tags:
     - os_install_unattended_upgrades
