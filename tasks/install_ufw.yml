@@ -49,7 +49,7 @@
             from_ip: "{{ item }}"
             port: 22
             proto: tcp
-          notify: ufw_rules_changed
+          notify: os_ufw_rules_changed
           loop: "{{ os_v.ssh_allowed_networks }}"
 
         - name: "Allow localhost access to the local machine's ports"
@@ -57,12 +57,12 @@
             rule: allow
             from_ip: 127.0.0.1
             to_ip: 127.0.0.1
-          notify: ufw_rules_changed
+          notify: os_ufw_rules_changed
 
         - name: "Enable the firewall"
           ufw:
             state: enabled
-          notify: ufw_rules_changed
+          notify: os_ufw_rules_changed
       become: yes
   tags:
     - os_install_ufw

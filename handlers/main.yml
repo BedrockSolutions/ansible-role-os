@@ -1,15 +1,15 @@
 ---
 
-- name: reboot
+- name: os_reboot
   set_fact:
     os_reboot_required: yes
 
 - block:
-    - name: ufw_rules_changed
+    - name: os_ufw_rules_changed
       shell: iptables-save > /etc/iptables/rules.v4
 
-    - name: ufw_reload
+    - name: os_ufw_reload
       ufw:
         state: reloaded
-      listen: ufw_rules_changed
+      listen: os_ufw_rules_changed
   become: yes
