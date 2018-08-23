@@ -1,0 +1,41 @@
+---
+
+- block:
+    - name: "Install pip"
+      apt:
+        name: python3-pip
+        state: latest
+      become: yes
+
+    - name: "Upgrade pip"
+      command: pip install --upgrade pip
+
+    - name: "Install virtualenv"
+      pip:
+        name:
+          - virtualenv
+        state: latest
+
+    - name: "Install ansible into python virtualenv"
+      pip:
+        name:
+          - ansible
+          - apache-libcloud
+#          - jmespath
+          - git+git://github.com/Julian/jsonschema.git
+#          - pycrypto
+        virtualenv: ~/venv
+        virtualenv_command: ~/.local/bin/virtualenv
+        state: latest
+
+    - name: "Configure .bashrc"
+      blockinfile:
+        path: ~/.bashrc
+        state: present
+        marker: "# {mark} Ansible ansible"
+        block: |
+          alias gpl='git pull origin'
+          alias gs='git status'
+          source ~/venv/bin/activate
+  tags:
+    - ansible_install
