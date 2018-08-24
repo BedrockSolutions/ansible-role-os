@@ -127,7 +127,7 @@ Install Unattended Upgrades
 
 #### Arguments
 
-* __`stackdriver_ingest_log`:__ If enabled, configures the
+* __`stackdriver_enabled`:__ If true, configures the
 Stackdriver logging agent to ingest the log in `/var/log`
     * type: boolean
     * default: no

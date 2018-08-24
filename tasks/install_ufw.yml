@@ -9,8 +9,8 @@
               type: array
               items:
                 type: string
-              default:
-                - 0.0.0.0/0
+                format: ipv4
+              minLength: 1
           required:
             - ssh_allowed_networks
         instance: "{{ os }}"

@@ -5,11 +5,11 @@
         schema:
           type: object
           properties:
-            stackdriver_ingest_log:
+            stackdriver_enabled:
               type: boolean
               default: no
           required:
-            - stackdriver_ingest_log
+            - stackdriver_enabled
         instance: "{{ os }}"
       register: os_validated
 
@@ -48,6 +48,6 @@
               </record>
             </filter>
           filename: unattended-upgrades
-      when: os_v.stackdriver_ingest_log
+      when: os_v.stackdriver_enabled
   tags:
     - os_install_unattended_upgrades
