@@ -21,7 +21,6 @@
         name:
           - ansible
           - apache-libcloud
-#          - jmespath
           - git+git://github.com/Julian/jsonschema.git
 #          - pycrypto
         virtualenv: ~/venv

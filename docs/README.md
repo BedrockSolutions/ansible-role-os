@@ -103,9 +103,8 @@ Install UFW
 #### Arguments
 
 * __`ssh_allowed_networks`:__ list of IP networks that are allowed
-to connect to the SSH daemon
+to connect to the SSH daemon. At least one entry is required.
     * type: list\<string\>
-    * default: `['0.0.0.0/0']`
       
 #### Example
 
@@ -218,7 +217,6 @@ parameter
     * default: 50
 
 * __`device`:__ the device which will be used for swap
-parameter
     * type: string
 
 * __`swappiness`:__ sets the system `swappiness` parameter
