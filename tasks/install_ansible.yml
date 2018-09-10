@@ -8,7 +8,8 @@
 
     - name: "Install pip3"
       shell: curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python3
-      warn: no
+      args:
+        warn: no
 
     - name: "Install Ansible and dependencies"
       command: >
