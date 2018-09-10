@@ -12,18 +12,9 @@
 
     - name: "Install Ansible and dependencies"
       command: >
-        pip3 install --user
+        pip3 install --upgrade --user
           ansible
           cryptography
           git+git://github.com/Julian/jsonschema.git
-
-    - name: "Configure .bashrc"
-      blockinfile:
-        path: ~/.bashrc
-        state: present
-        marker: "# {mark} Ansible ansible"
-        block: |
-          alias gpl='git pull origin'
-          alias gs='git status'
   tags:
     - os_install_ansible
