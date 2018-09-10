@@ -25,4 +25,4 @@
           alias gpl='git pull origin'
           alias gs='git status'
   tags:
-    - ansible_install
+    - os_install_ansible
