@@ -10,7 +10,7 @@
       shell: curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python3
 
     - name: "Install Ansible and dependencies"
-      shell: >
+      command: >
         pip3 install --user
           ansible
           cryptography
