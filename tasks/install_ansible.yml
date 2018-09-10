@@ -1,31 +1,20 @@
 ---
 
 - block:
-    - name: "Install pip"
+    - name: "Install git"
       apt:
-        name: python3-pip
-        state: latest
+        name: git
       become: yes
 
-    - name: "Upgrade pip"
-      command: pip install --upgrade pip
+    - name: "Install pip3"
+      shell: curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python3
 
-    - name: "Install virtualenv"
-      pip:
-        name:
-          - virtualenv
-        state: latest
-
-    - name: "Install ansible into python virtualenv"
-      pip:
-        name:
-          - ansible
-          - apache-libcloud
-          - git+git://github.com/Julian/jsonschema.git
-#          - pycrypto
-        virtualenv: ~/venv
-        virtualenv_command: ~/.local/bin/virtualenv
-        state: latest
+    - name: "Install Ansible and dependencies"
+      shell: >
+        pip3 install --user
+          ansible
+          cryptography
+          git+git://github.com/Julian/jsonschema.git
 
     - name: "Configure .bashrc"
       blockinfile:
@@ -35,6 +24,5 @@
         block: |
           alias gpl='git pull origin'
           alias gs='git status'
-          source ~/venv/bin/activate
   tags:
     - ansible_install
