@@ -9,13 +9,16 @@
     - name: "Install pip3"
       shell: curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python3
       args:
+        creates: /usr/local/bin/pip3
         warn: no
 
     - name: "Install Ansible and dependencies"
-      command: >
-        pip3 install --upgrade --user
-          ansible
-          cryptography
-          git+git://github.com/Julian/jsonschema.git
+      pip:
+        name:
+          - ansible
+          - cryptography
+          - git+git://github.com/Julian/jsonschema.git
+        executable: /usr/local/bin/pip3
+        extra_args: --upgrade --user
   tags:
     - os_install_ansible
