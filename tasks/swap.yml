@@ -29,13 +29,13 @@
 
     - block:
         - name: "Check if swap device is already enabled"
-          command: "swapon --show"
+          command: "swapon --show=LABEL"
           changed_when: no
           register: os_swap_device_check
 
         - block:
             - name: "Initialize {{ os_v.device }} as a swap device"
-              command: "mkswap {{ os_v.device }}"
+              command: "mkswap -L {{ os_v.device }} {{ os_v.device }}"
 
             - name: "Add {{ os_v.device }} to /etc/fstab"
               lineinfile:
