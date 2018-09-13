@@ -35,13 +35,16 @@
 
         - block:
             - name: "Initialize {{ os_v.device }} as a swap device"
-              command: "mkswap -L {{ os_v.device }} {{ os_v.device }}"
+              command: "mkswap -L {{ os_v.device | basename }} {{ os_v.device }}"
+
+            - name: "Enable {{ os_v.device }} as a swap device"
+              command: "swapon {{ os_v.device }}"
 
             - name: "Add {{ os_v.device }} to /etc/fstab"
               lineinfile:
                 path: /etc/fstab
                 line: "{{ os_v.device }} none swap sw 0 0"
-          when: os_v.device not in os_swap_device_check.stdout
+          when: (os_v.device|basename) not in os_swap_device_check.stdout
 
         - name: "Set swap swappiness"
           sysctl:
