@@ -25,6 +25,7 @@
         name: dev-sec.os-hardening
       vars:
         ufw_manage_defaults: "{{ os_v.ufw_manage_defaults }}"
+        os_hardening_enabled: yes
         sysctl_overwrite:
           net.ipv4.ip_forward: "{{ os_v.kernel_ip_forwarding | ternary(1, 0) }}"
 #          ​net.ipv6.conf.all.accept_source_route: 0
