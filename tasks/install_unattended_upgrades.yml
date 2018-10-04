@@ -18,6 +18,8 @@
 
     - import_role:
         name: jnv.unattended-upgrades
+      vars:
+        unattended_enabled: yes
       become: yes
 
     - include_role:
