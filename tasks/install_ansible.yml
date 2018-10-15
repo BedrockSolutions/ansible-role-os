@@ -19,6 +19,7 @@
           - cryptography
           - deepmerge
           - git+git://github.com/Julian/jsonschema.git
+          - google-api-python-client
         executable: /usr/local/bin/pip3
         extra_args: --upgrade --user
   tags:
