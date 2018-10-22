@@ -7,5 +7,18 @@
     - name: "Shutdown the machine"
       shell: nohup bash -c "sleep 2s && shutdown now" &
       become: yes
+
+    - name: "Wait for the machine to shutdown"
+      wait_for:
+        host: "{{ inventory_hostname }}"
+        port: 22
+        state: stopped
+      delegate_to: localhost
+
+    - name: "Insure the machine is gone"
+      net_ping:
+        dest: "{{ inventory_hostname }}"
+        state: absent
+      delegate_to: localhost
   tags:
     - os_shutdown
