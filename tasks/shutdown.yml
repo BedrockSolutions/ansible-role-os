@@ -8,9 +8,11 @@
       shell: nohup bash -c "sleep 2s && shutdown now" &
       become: yes
 
+    - pause:
+        seconds: 5
+
     - name: "Wait for the machine to shutdown"
       wait_for:
-        delay: 5
         host: "{{ inventory_hostname }}"
         port: 22
         state: stopped
