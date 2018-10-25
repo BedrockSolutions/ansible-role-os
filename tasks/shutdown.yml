@@ -10,6 +10,7 @@
 
     - name: "Wait for the machine to shutdown"
       wait_for:
+        delay: 5
         host: "{{ inventory_hostname }}"
         port: 22
         state: stopped
