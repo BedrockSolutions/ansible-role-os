@@ -22,5 +22,11 @@
           - google-api-python-client
         executable: /usr/local/bin/pip3
         extra_args: --upgrade --user
+
+    - name: "Patch broken GCP module code"
+      lineinfile:
+        path: /home/ubuntu/.local/lib/python3.5/site-packages/ansible/module_utils/gcp_utils.py
+        regexp: self\._credentials\(\)\.with_scopes
+        line: "            self._credentials())"
   tags:
     - os_install_ansible
