@@ -9,6 +9,14 @@ dependencies:
         command: dependency
     version: master
 
+  - name: bedrock.pythod
+    scm: git
+    src: https://github.com/BedrockSolutions/ansible-role-python.git
+    vars:
+      python:
+        command: dependency
+    version: master
+
   - name: bedrock.stackdriver
     scm: git
     src: https://github.com/BedrockSolutions/ansible-role-stackdriver.git
