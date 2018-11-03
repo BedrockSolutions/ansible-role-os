@@ -9,7 +9,7 @@ dependencies:
         command: dependency
     version: master
 
-  - name: bedrock.pythod
+  - name: bedrock.python
     scm: git
     src: https://github.com/BedrockSolutions/ansible-role-python.git
     vars:
