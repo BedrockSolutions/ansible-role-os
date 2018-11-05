@@ -11,13 +11,14 @@
         name: bedrock.python
       vars:
         python:
-          command: pip3
+          command: pip
           packages:
             - ansible
             - cryptography
             - deepmerge
             - git+git://github.com/Julian/jsonschema.git
             - google-api-python-client
+          python_version: 3
 
     - name: "Patch broken GCP module code"
       lineinfile:
