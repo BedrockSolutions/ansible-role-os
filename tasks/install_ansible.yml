@@ -22,7 +22,7 @@
 
     - name: "Patch broken GCP module code"
       lineinfile:
-        path: /home/ubuntu/.local/lib/python3.5/site-packages/ansible/module_utils/gcp_utils.py
+        path: /usr/local/lib/python3.5/dist-packages/ansible/module_utils/gcp_utils.py
         regexp: self\._credentials\(\)\.with_scopes
         line: "            self._credentials())"
   tags:
