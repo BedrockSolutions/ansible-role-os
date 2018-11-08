@@ -20,6 +20,11 @@
         os_v: "{{ os_validated.result }}"
 
     - block:
+        - name: "Wait for the lockfile to be released"
+          wait_for:
+            path: /var/lib/dpkg/lock-frontend
+            state: absent
+
         - name: "Install UFW and supporting packages"
           apt:
             name:
