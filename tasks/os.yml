@@ -10,7 +10,6 @@
               enum:
                 - dependency
                 - harden
-                - install_ansible
                 - install_ufw
                 - install_unattended_upgrades
                 - reboot
