@@ -16,10 +16,10 @@
           shell: nohup bash -c "sleep 2s && shutdown -r now" &
           become: yes
 
-        - name: "Wait for the ssh connection to return"
+        - name: "Wait for the SSH connection to return"
           wait_for_connection:
             timeout: 240
-            delay: 15
+            delay: 10
 
         - name: "Reset the reboot flag"
           set_fact:
