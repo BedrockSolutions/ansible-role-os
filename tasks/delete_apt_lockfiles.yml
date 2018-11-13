@@ -1,0 +1,17 @@
+---
+
+- block:
+  - name: "Delete APT lockfiles"
+    import_role:
+      name: bedrock.ansible
+    vars:
+      ansible:
+        command: delete_remote_files
+        directory: /var/lib/dpkg
+        pattern: lock*
+    become: yes
+
+  - name: "Configure dpkg"
+    command: sudo dpkg --configure -a
+  tags:
+    - os_delete_apt_lockfiles

@@ -8,6 +8,7 @@
             command:
               type: string
               enum:
+                - delete_apt_lockfiles
                 - dependency
                 - harden
                 - install_ufw
