@@ -20,13 +20,6 @@
         os_v: "{{ os_validated.result }}"
 
     - block:
-        - name: "Delete APT lockfiles"
-          import_role:
-            name: bedrock.os
-          vars:
-            os:
-              command: delete_apt_lockfiles
-
         - name: "Install UFW and supporting packages"
           apt:
             name:
