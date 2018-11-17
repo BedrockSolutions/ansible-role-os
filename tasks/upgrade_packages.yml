@@ -13,7 +13,7 @@
               default: yes
             force_apt_get:
               type: boolean
-              default: false
+              default: true
             type:
               type: string
               enum:
