@@ -43,5 +43,9 @@
         update_cache: "{{ os_v.update_cache }}"
         upgrade: "{{ os_v.type }}"
       become: yes
+      delay: 3
+      register: os_apt_result
+      retries: 5
+      until: os_apt_result | succeeded
   tags:
     - os_upgrade_packages
