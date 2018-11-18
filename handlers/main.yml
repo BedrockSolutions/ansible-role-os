@@ -1,8 +1,14 @@
 ---
 
 - name: os_reboot
-  set_fact:
-    os_reboot_required: yes
+  copy:
+    content: ""
+    dest: /var/run/reboot-required
+    force: no
+  become: yes
+
+#  set_fact:
+#    os_reboot_required: yes
 
 - block:
     - name: os_ufw_rules_changed
